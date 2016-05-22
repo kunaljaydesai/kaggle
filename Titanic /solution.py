@@ -25,6 +25,7 @@ def k_means(num, pt1, df):
 		closest_num.append(heappop(heap))
 	return np.mean([i[1] for i in closest_num])
 
+#cleaned up training data set
 
 train_df = pd.read_csv('train.csv', header=0)
 train_df['Gender'] = train_df['Sex'].map({'female' : 0, 'male' : 1}).astype(int)
@@ -40,6 +41,7 @@ train_df.Age[train_df.Age.isnull()] = train_df.Embarked.dropna().median()
 train_df = train_df.drop(['Name', 'Sex', 'Ticket', 'Cabin', 'PassengerId'], axis=1)
 
 
+#cleaned up test data set
 
 test_df = pd.read_csv('test.csv', header=0)
 test_df['Gender'] = test_df['Sex'].map({'female' : 0, 'male' : 1}).astype(int)
@@ -55,6 +57,8 @@ test_df.Age[test_df.Age.isnull()] = test_df.Embarked.dropna().median()
 test_df = test_df.drop(['Name', 'Sex', 'Ticket', 'Cabin', 'PassengerId'], axis=1)
 
 random_row_index = random.randint(0, len(test_df))
+
+#given a random person in the test data set, tells probability of survival
 print("Random row index: " + str(random_row_index))
 row = test_df.ix[random_row_index]
 pt1 = [row['Pclass'], row['Age'], row['SibSp'], row['Parch'], row['Fare'], row['Embarked'], row['Gender']]
